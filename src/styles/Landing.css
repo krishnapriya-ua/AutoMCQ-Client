@@ -1,0 +1,41 @@
+.landing-container {
+ 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f9f9f9;
+}
+
+.content-box {
+  background: white;
+  padding: 2rem 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+}
+
+.title {
+    font-size: larger;
+    font-weight: bold;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+.subtitle {
+      color: #5c5858;
+    margin-bottom: 1rem;
+    font-size: small;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  
+}
+
+.upload-box input[type="file"] {
+  padding: 0.3rem;
+}
+
+.upload-button {
+  width: 100%;
+  background-color: black!important;
+}
