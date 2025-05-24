@@ -8,6 +8,7 @@ export default function Landing() {
   const [video, setVideo] = useState<File | null>(null)
   const [progress, setProgress] = useState<number>(0)
   const [status, setStatus] = useState<string>('')
+  const BACKEND_URL=import.meta.env.VITE_BACKEND_URL
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -64,7 +65,7 @@ export default function Landing() {
   try {
     simulateProgress() // handles progress + status + input cleanup
 
-    const response = await axios.post('http://localhost:8000/api/upload', formData)
+    const response = await axios.post(`${BACKEND_URL}/upload`, formData)
 
     if (!response.data.success) {
       alert('Upload failed')
