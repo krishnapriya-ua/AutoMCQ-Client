@@ -2,7 +2,9 @@ import { Button, LinearProgress, Typography, Box } from "@mui/material";
 import { useState, useRef } from "react";
 import "../styles/Landing.css";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
 import ClipLoader from "react-spinners/ClipLoader";
+import MCQDisplay from "./mcq";
 
 export default function Landing() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -20,6 +22,15 @@ export default function Landing() {
       setProgress(0);
       console.log("Selected video:", e.target.files[0].name); 
     }
+  };
+
+  const getSessionId = () => {
+  let id = sessionStorage.getItem("sessionId");
+  if (!id) {
+    id = uuidv4();
+    sessionStorage.setItem("sessionId", id);
+  }
+  return id;
   };
 
   const simulateProgress = async (formData: FormData) => {
@@ -89,9 +100,15 @@ export default function Landing() {
       setStatus("No video selected ❌");
       return;
     }
+    const sessionId = getSessionId();
 
     const formData = new FormData();
     formData.append("video", video);
+    formData.append("sessionId", sessionId);
+    formData.append("videoName", video.name); // Add video name
+
+    console.log("Uploading video:", video.name);
+    console.log("Session ID:", sessionId);
     console.log("Uploading video:", video.name);
 
     try {
@@ -102,6 +119,8 @@ export default function Landing() {
       setStatus("Processing failed ❌");
     }
   };
+
+  const sessionId=getSessionId()
 
   return (
     <div className="landing-container my-5">
@@ -144,7 +163,13 @@ export default function Landing() {
             <Typography variant="body1">{generatedText}</Typography>
           </Box>
         )}
+
+        
       </div>
+      <div className="saved">
+      {sessionId && <MCQDisplay sessionId={sessionId} />}
+      </div>
+      
     </div>
   );
 }

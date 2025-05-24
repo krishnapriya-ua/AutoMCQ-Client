@@ -1,6 +1,7 @@
 .landing-container {
  
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: #f9f9f9;
@@ -44,4 +45,10 @@
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
+}
+.saved{
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+  max-width: 31rem;
 }
