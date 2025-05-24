@@ -2,6 +2,7 @@ import { Button, LinearProgress, Typography, Box } from "@mui/material";
 import { useState, useRef } from "react";
 import "../styles/Landing.css";
 import axios from "axios";
+import ClipLoader from "react-spinners/ClipLoader";
 
 export default function Landing() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
@@ -64,10 +65,7 @@ export default function Landing() {
         setStatus("Generating Questions...");
       }
 
-      if (percent >= 100) {
-        clearInterval(transcribeInterval);
-        setStatus("Done ✅");
-      }
+     
     }, 100);
 
     
@@ -75,6 +73,8 @@ export default function Landing() {
       const textResponse = await axios.post(`${BACKEND_URL}/text`, formData);
       console.log("Text response:", textResponse.data); 
       setGeneratedText(textResponse.data.text);
+      clearInterval(transcribeInterval);
+      setStatus("Done ✅");
     } catch (error) {
       console.error("Text generation error:", error); 
       clearInterval(transcribeInterval);
@@ -128,6 +128,15 @@ export default function Landing() {
             <LinearProgress variant="determinate" value={progress} />
           </div>
         )}
+
+       {status === "Generating Questions..." && (
+       <div className="flex flex-col items-center mt-4">
+      <ClipLoader color="#4f46e5" size={45} />
+      <p className="text-gray-700 mt-3 text-sm">
+      Generating final content... this may take a few minutes. Kindly wait.
+      </p>
+      </div>
+      )}
 
         {generatedText && (
           <Box className="result-box mt-4" sx={{ textAlign: "left", whiteSpace: "pre-wrap" }}>
