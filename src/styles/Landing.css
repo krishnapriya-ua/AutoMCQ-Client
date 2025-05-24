@@ -39,3 +39,9 @@
   width: 100%;
   background-color: black!important;
 }
+
+.status-box {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
